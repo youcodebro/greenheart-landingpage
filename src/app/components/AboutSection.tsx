@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import brightRiver from "@/assets/images/bright-river.webp";
 
 export function AboutSection() {
   return (
@@ -14,10 +15,9 @@ export function AboutSection() {
             className="rounded-lg overflow-hidden shadow-xl"
           >
             <img
-              src="https://images.unsplash.com/photo-1587128090681-f411098e0473?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjBlbnZpcm9ubWVudGFsJTIwcHJvZmVzc2lvbmFscyUyMHRlYW18ZW58MXx8fHwxNzcxMzMyODA4fDA&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="Professional HSE Team"
+              src={brightRiver}
+              alt="Bright River Environmental"
               className="w-full h-[300px] sm:h-[400px] lg:h-[500px] object-cover"
-              style={{ filter: "saturate(0.9)" }}
             />
           </motion.div>
 
