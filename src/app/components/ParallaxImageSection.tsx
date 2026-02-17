@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 
 interface ParallaxImageSectionProps {
@@ -13,12 +13,25 @@ export function ParallaxImageSection({
   subtitle,
 }: ParallaxImageSectionProps) {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+  
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 992);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section
@@ -27,7 +40,7 @@ export function ParallaxImageSection({
     >
       {/* Parallax Background */}
       <motion.div
-        style={{ y }}
+        style={{ y: isMobile ? 0 : y }}
         className="absolute inset-0 w-full h-[120%]"
       >
         <div

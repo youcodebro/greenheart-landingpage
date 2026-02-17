@@ -55,7 +55,7 @@ export function Footer() {
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 mt-0.5 text-[#C8A951] flex-shrink-0" />
-                <span
+                <div
                   className="text-white/80"
                   style={{
                     fontFamily: "'Inter', sans-serif",
@@ -63,13 +63,15 @@ export function Footer() {
                     lineHeight: "1.6",
                   }}
                 >
-                  Georgetown, Guyana
-                </span>
+                  <div>Georgetown, Guyana</div>
+                  <div>Washington, DC</div>
+                  <div>Houston, Texas</div>
+                </div>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-[#C8A951] flex-shrink-0" />
                 <a
-                  href="mailto:info@greenheartgy.com"
+                  href="mailto:victoria@greenheart.group"
                   className="text-white/80 hover:text-white transition-colors break-all"
                   style={{
                     fontFamily: "'Inter', sans-serif",
@@ -77,21 +79,7 @@ export function Footer() {
                     textDecoration: "none",
                   }}
                 >
-                  info@greenheartgy.com
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-[#C8A951] flex-shrink-0" />
-                <a
-                  href="tel:+592-XXX-XXXX"
-                  className="text-white/80 hover:text-white transition-colors"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "clamp(14px, 2vw, 15px)",
-                    textDecoration: "none",
-                  }}
-                >
-                  +592-XXX-XXXX
+                  victoria@greenheart.group
                 </a>
               </div>
             </div>
