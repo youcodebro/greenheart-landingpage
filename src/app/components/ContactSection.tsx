@@ -32,22 +32,57 @@ export function ContactSection() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const resetForm = () => {
+    setFormData({
+      fullName: "",
+      companyName: "",
+      email: "",
+      phone: "",
+      industry: "",
+      service: "",
+      message: "",
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        fullName: "",
-        companyName: "",
-        email: "",
-        phone: "",
-        industry: "",
-        service: "",
-        message: "",
+    setError(null);
+    setIsSubmitting(true);
+
+    const payload = new URLSearchParams({
+      "form-name": "contact",
+      "bot-field": "",
+      fullName: formData.fullName,
+      companyName: formData.companyName,
+      email: formData.email,
+      phone: formData.phone || "",
+      industry: formData.industry || "",
+      service: formData.service || "",
+      message: formData.message,
+    });
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: payload.toString(),
       });
-    }, 5000);
+
+      if (!response.ok) {
+        throw new Error("Failed to send message. Please try again.");
+      }
+
+      setSubmitted(true);
+      resetForm();
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -115,6 +150,14 @@ export function ContactSection() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+              {error && (
+                <div
+                  className="p-4 rounded-lg bg-red-50 border border-red-200 text-red-700"
+                  style={{ fontFamily: "'Inter', sans-serif", fontSize: "14px" }}
+                >
+                  {error}
+                </div>
+              )}
               <div>
                 <label
                   htmlFor="fullName"
@@ -379,14 +422,15 @@ export function ContactSection() {
 
               <button
                 type="submit"
-                className="w-full bg-[#C8A951] text-[#0B3D2E] px-8 py-3 sm:py-4 rounded hover:bg-[#D4B562] transition-colors"
+                disabled={isSubmitting}
+                className="w-full bg-[#C8A951] text-[#0B3D2E] px-8 py-3 sm:py-4 rounded hover:bg-[#D4B562] transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
                 style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: "clamp(16px, 2.5vw, 18px)",
                   fontWeight: "500",
                 }}
               >
-                Submit Inquiry
+                {isSubmitting ? "Sending..." : "Submit Inquiry"}
               </button>
             </form>
           )}
