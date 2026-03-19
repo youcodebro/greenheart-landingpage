@@ -1,0 +1,142 @@
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+const FROM_EMAIL = process.env.FROM_EMAIL || "Green Heart <onboarding@resend.dev>";
+const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL || "youcodebro@gmail.com";
+
+interface FormPayload {
+  fullName: string;
+  companyName: string;
+  email: string;
+  phone?: string;
+  industry?: string;
+  service?: string;
+  message: string;
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function buildEmailHtml(data: FormPayload): string {
+  const fields = [
+    { label: "Full Name", value: data.fullName },
+    { label: "Company", value: data.companyName },
+    { label: "Email", value: `<a href="mailto:${escapeHtml(data.email)}" style="color: #1F6F50;">${escapeHtml(data.email)}</a>` },
+    { label: "Phone", value: data.phone || "—" },
+    { label: "Industry", value: data.industry || "—" },
+    { label: "Service of Interest", value: data.service || "—" },
+  ];
+
+  const rows = fields
+    .map(
+      (f) => `
+    <tr>
+      <td style="padding: 12px 16px; font-weight: 600; color: #0B3D2E; width: 180px; vertical-align: top;"><strong>${escapeHtml(f.label)}</strong></td>
+      <td style="padding: 12px 16px; color: #374151;">${typeof f.value === "string" && !f.value.startsWith("<") ? escapeHtml(f.value) : f.value}</td>
+    </tr>`
+    )
+    .join("");
+
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Inquiry — Green Heart</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #e8f0ec;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #e8f0ec; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
+          <tr>
+            <td style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">🌿 Green Heart</h1>
+              <p style="margin: 8px 0 0 0; color: #C8A951; font-size: 14px; font-weight: 500;">Corporate Environmental & HSE Consultancy</p>
+              <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 28px 40px 16px 40px;">
+              <h2 style="margin: 0; color: #0B3D2E; font-size: 20px; font-weight: 600;">New Inquiry</h2>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 0 40px 24px 40px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+                ${rows}
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 0 40px 32px 40px;">
+              <div style="background: #F4F8F5; border-radius: 8px; padding: 20px 24px; border-left: 4px solid #1F6F50;">
+                <p style="margin: 0 0 8px 0; color: #0B3D2E; font-size: 14px; font-weight: 600;"><strong>Message</strong></p>
+                <p style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(data.message)}</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 20px 40px; background: #f9fafb; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0; color: #6b7280; font-size: 12px;">Green Heart Environmental & HSE Consultancy · Guyana LTD</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `.trim();
+}
+
+export async function handler(event: { httpMethod: string; body?: string }) {
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: JSON.stringify({ ok: false, error: "Method not allowed" }) };
+  }
+
+  let data: FormPayload;
+  try {
+    data = JSON.parse(event.body || "{}");
+  } catch {
+    return { statusCode: 400, body: JSON.stringify({ ok: false, error: "Invalid JSON" }) };
+  }
+
+  const { fullName, companyName, email, message } = data;
+  if (!fullName?.trim() || !companyName?.trim() || !email?.trim() || !message?.trim()) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ ok: false, error: "Missing required fields: fullName, companyName, email, message" }),
+    };
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    return { statusCode: 500, body: JSON.stringify({ ok: false, error: "Email service not configured" }) };
+  }
+
+  let emailSent = false;
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: RECIPIENT_EMAIL,
+      replyTo: email,
+      subject: `Green Heart Inquiry — ${companyName}`,
+      html: buildEmailHtml(data),
+    });
+    if (!error) emailSent = true;
+  } catch (err) {
+    console.error("Email send failed:", err);
+  }
+
+  return {
+    statusCode: 200,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ok: true, emailSent }),
+  };
+}

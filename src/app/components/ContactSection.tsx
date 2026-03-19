@@ -52,38 +52,39 @@ export function ContactSection() {
     setError(null);
     setIsSubmitting(true);
 
-    const payload = new URLSearchParams({
-      "form-name": "contact",
-      "bot-field": "",
+    const payload = {
       fullName: formData.fullName,
       companyName: formData.companyName,
       email: formData.email,
-      phone: formData.phone || "",
-      industry: formData.industry || "",
-      service: formData.service || "",
+      phone: formData.phone || undefined,
+      industry: formData.industry || undefined,
+      service: formData.service || undefined,
       message: formData.message,
-    });
+    };
 
     try {
-      const response = await fetch("/", {
+      const response = await fetch("/api/submit-form", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: payload.toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to send message. Please try again.");
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || "Failed to send message. Please try again.");
       }
 
       setSubmitted(true);
       resetForm();
-      setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const closeThankYou = () => setSubmitted(false);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -125,31 +126,7 @@ export function ContactSection() {
             Submit an Inquiry
           </h2>
 
-          {submitted ? (
-            <div className="text-center py-12">
-              <p
-                className="text-[#0B3D2E] mb-4"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "clamp(16px, 2.5vw, 18px)",
-                  lineHeight: "1.7",
-                }}
-              >
-                Thank you for contacting Green Heart.
-              </p>
-              <p
-                className="text-[#374151]"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "clamp(15px, 2vw, 16px)",
-                  lineHeight: "1.7",
-                }}
-              >
-                A representative will respond within one business day.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
               {error && (
                 <div
                   className="p-4 rounded-lg bg-red-50 border border-red-200 text-red-700"
@@ -433,6 +410,76 @@ export function ContactSection() {
                 {isSubmitting ? "Sending..." : "Submit Inquiry"}
               </button>
             </form>
+
+          {/* Thank You Popup */}
+          {submitted && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              style={{ backgroundColor: "rgba(11, 61, 46, 0.6)" }}
+              onClick={closeThankYou}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="relative w-full max-w-md rounded-2xl bg-white p-8 sm:p-10 shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                <button
+                  onClick={closeThankYou}
+                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                  aria-label="Close"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 6 6 18M6 6l12 12" />
+                  </svg>
+                </button>
+                <div className="text-center">
+                  <div
+                    className="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: "#F4F8F5" }}
+                  >
+                    <span className="text-4xl">🌿</span>
+                  </div>
+                  <h3
+                    className="text-[#0B3D2E] mb-2"
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: "24px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Thank You
+                  </h3>
+                  <p
+                    className="text-[#374151] mb-1"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "16px",
+                      lineHeight: "1.6",
+                    }}
+                  >
+                    Thank you for contacting Green Heart.
+                  </p>
+                  <p
+                    className="text-[#6b7280]"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "14px",
+                      lineHeight: "1.6",
+                    }}
+                  >
+                    A representative will respond within one business day.
+                  </p>
+                  <div className="mt-6 w-12 h-0.5 mx-auto" style={{ backgroundColor: "#C8A951" }} />
+                </div>
+              </motion.div>
+            </motion.div>
           )}
         </motion.div>
       </div>
