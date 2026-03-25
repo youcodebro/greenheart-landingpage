@@ -96,6 +96,95 @@ function buildEmailHtml(data: FormPayload): string {
   `.trim();
 }
 
+function buildConfirmationHtml(data: FormPayload): string {
+  // Keep the message readable and aligned with your brand colors
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanks — Green Heart</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #e8f0ec;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #e8f0ec; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">🌿 Green Heart</h1>
+              <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding: 28px 40px 8px 40px;">
+              <h2 style="margin: 0 0 12px 0; color: #0B3D2E; font-size: 20px; font-weight: 700;">Thank you for your inquiry</h2>
+              <p style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7;">
+                Dear ${escapeHtml(data.fullName)},
+              </p>
+              <p style="margin: 10px 0 0 0; color: #374151; font-size: 15px; line-height: 1.7;">
+                We’ve received your message and a representative will respond within one business day.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Summary -->
+          <tr>
+            <td style="padding: 12px 40px 24px 40px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+                <tr>
+                  <td style="padding: 14px 16px; background: #F4F8F5; border-bottom: 1px solid #e5e7eb;">
+                    <p style="margin: 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">Inquiry Details</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 16px;">
+                    <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px;">
+                      <strong style="color: #0B3D2E;">Company:</strong> ${escapeHtml(data.companyName)}
+                    </p>
+                    <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px;">
+                      <strong style="color: #0B3D2E;">Service:</strong> ${escapeHtml(data.service || "—")}
+                    </p>
+                    <p style="margin: 0; color: #374151; font-size: 14px;">
+                      <strong style="color: #0B3D2E;">Industry:</strong> ${escapeHtml(data.industry || "—")}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Message -->
+          <tr>
+            <td style="padding: 0 40px 32px 40px;">
+              <div style="background: #F4F8F5; border-radius: 8px; padding: 18px 20px; border-left: 4px solid #1F6F50;">
+                <p style="margin: 0 0 8px 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">Your message</p>
+                <p style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(data.message)}</p>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 20px 40px; background: #f9fafb; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0; color: #6b7280; font-size: 12px;">
+                Green Heart Environmental & HSE Consultancy · Guyana LTD
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `.trim();
+}
+
 export async function handler(event: { httpMethod: string; body?: string }) {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: JSON.stringify({ ok: false, error: "Method not allowed" }) };
@@ -121,6 +210,7 @@ export async function handler(event: { httpMethod: string; body?: string }) {
   }
 
   let emailSent = false;
+  let confirmationSent = false;
   try {
     const { error } = await resend.emails.send({
       from: FROM_EMAIL,
@@ -134,9 +224,23 @@ export async function handler(event: { httpMethod: string; body?: string }) {
     console.error("Email send failed:", err);
   }
 
+  // Best-effort confirmation email to the submitter.
+  // If it fails (e.g. Resend restrictions), we still want the form submission to succeed.
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: "We received your inquiry — Green Heart",
+      html: buildConfirmationHtml(data),
+    });
+    if (!error) confirmationSent = true;
+  } catch (err) {
+    console.error("Confirmation email send failed:", err);
+  }
+
   return {
     statusCode: 200,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ok: true, emailSent }),
+    body: JSON.stringify({ ok: true, emailSent, confirmationSent }),
   };
 }
