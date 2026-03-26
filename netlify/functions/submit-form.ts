@@ -22,6 +22,54 @@ function escapeHtml(str: string): string {
     .replace(/"/g, "&quot;");
 }
 
+function escapeText(str: string): string {
+  // Keep text email readable; normalize newlines from user input.
+  return str.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
+}
+
+function buildEmailText(data: FormPayload): string {
+  return `
+New inquiry received
+
+Full Name: ${escapeText(data.fullName)}
+Company: ${escapeText(data.companyName)}
+Email: ${escapeText(data.email)}
+Phone: ${escapeText(data.phone || "—")}
+Industry: ${escapeText(data.industry || "—")}
+Service of Interest: ${escapeText(data.service || "—")}
+
+Message:
+${escapeText(data.message)}
+
+Green Heart Environmental & HSE Consultancy · Guyana LTD
+`.trim();
+}
+
+function buildConfirmationText(data: FormPayload): string {
+  return `
+Thank you for your inquiry
+
+Dear ${escapeText(data.fullName)},
+We’ve received your message and a representative will respond within one business day.
+
+Inquiry Details
+Company: ${escapeText(data.companyName)}
+Service: ${escapeText(data.service || "—")}
+Industry: ${escapeText(data.industry || "—")}
+
+Your message:
+${escapeText(data.message)}
+
+Or you can contact us on:
+Georgetown, Guyana
+Washington, DC
+Houston, Texas
+victoria@greenheart.group
+
+Green Heart Environmental & HSE Consultancy · Guyana LTD
+`.trim();
+}
+
 function buildEmailHtml(data: FormPayload): string {
   const fields = [
     { label: "Full Name", value: data.fullName },
@@ -168,6 +216,40 @@ function buildConfirmationHtml(data: FormPayload): string {
             </td>
           </tr>
 
+          <!-- Contact -->
+          <tr>
+            <td style="padding: 0 40px 28px 40px;">
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px;">
+                <p style="margin: 0 0 10px 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">
+                  Or you can contact us on:
+                </p>
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+                  <tr>
+                    <td style="padding: 6px 0; color: #374151; font-size: 14px; line-height: 1.6;">
+                      <span style="display: inline-block; width: 22px; color: #1F6F50;">&#x2316;</span> Georgetown, Guyana
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 6px 0; color: #374151; font-size: 14px; line-height: 1.6;">
+                      <span style="display: inline-block; width: 22px; color: #1F6F50;">&#x2316;</span> Washington, DC
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 6px 0; color: #374151; font-size: 14px; line-height: 1.6;">
+                      <span style="display: inline-block; width: 22px; color: #1F6F50;">&#x2316;</span> Houston, Texas
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 6px 0 0 0; color: #374151; font-size: 14px; line-height: 1.6;">
+                      <span style="display: inline-block; width: 22px; color: #1F6F50;">&#x2709;</span>
+                      <a href="mailto:victoria@greenheart.group" style="color: #1F6F50; text-decoration: none; font-weight: 600;">victoria@greenheart.group</a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+
           <!-- Footer -->
           <tr>
             <td style="padding: 20px 40px; background: #f9fafb; border-top: 1px solid #e5e7eb;">
@@ -218,6 +300,7 @@ export async function handler(event: { httpMethod: string; body?: string }) {
       replyTo: email,
       subject: `Green Heart Inquiry — ${companyName}`,
       html: buildEmailHtml(data),
+      text: buildEmailText(data),
     });
     if (!error) emailSent = true;
   } catch (err) {
@@ -232,6 +315,7 @@ export async function handler(event: { httpMethod: string; body?: string }) {
       to: email,
       subject: "We received your inquiry — Green Heart",
       html: buildConfirmationHtml(data),
+      text: buildConfirmationText(data),
     });
     if (!error) confirmationSent = true;
   } catch (err) {
