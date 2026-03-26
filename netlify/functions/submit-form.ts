@@ -226,17 +226,7 @@ function buildConfirmationHtml(data: FormPayload): string {
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
                   <tr>
                     <td style="padding: 6px 0; color: #374151; font-size: 14px; line-height: 1.6;">
-                      <span style="display: inline-block; width: 22px; color: #1F6F50;">&#x2316;</span> Georgetown, Guyana
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 6px 0; color: #374151; font-size: 14px; line-height: 1.6;">
-                      <span style="display: inline-block; width: 22px; color: #1F6F50;">&#x2316;</span> Washington, DC
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 6px 0; color: #374151; font-size: 14px; line-height: 1.6;">
-                      <span style="display: inline-block; width: 22px; color: #1F6F50;">&#x2316;</span> Houston, Texas
+                      <span style="display: inline-block; width: 22px; color: #1F6F50;">&#x2316;</span> Georgetown, Guyana, Washington, DC, Houston, Texas
                     </td>
                   </tr>
                   <tr>
