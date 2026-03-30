@@ -119,20 +119,25 @@ export function Footer() {
               fontSize: "clamp(13px, 2vw, 14px)",
             }}
           >
-            © {new Date().getFullYear()} Green Heart Environmental & HSE
-            Consultancy. All rights reserved. &nbsp;•&nbsp; Built by
-            YouCodeBro LLC
+            © {new Date().getFullYear()} Green Heart. All rights reserved.
           </p>
-          <div className="mt-4 flex justify-center">
+          <a
+            href="https://youcodebro.com/services"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-flex items-center justify-center gap-2 text-white/70 font-bold text-sm hover:text-white transition-colors"
+            style={{ textDecoration: "none", fontFamily: "'Inter', sans-serif" }}
+          >
+            <span>Built by YouCodeBro</span>
             <img
               src="/media/ycb-logo.png"
-              alt="YCB"
-              className="h-8 w-auto object-contain opacity-90"
-              width={110}
-              height={32}
+              alt="YouCodeBro logo"
+              className="h-7 w-auto object-contain"
+              width={120}
+              height={36}
               decoding="async"
             />
-          </div>
+          </a>
         </div>
       </div>
     </footer>
