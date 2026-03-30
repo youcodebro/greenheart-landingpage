@@ -21,6 +21,10 @@ const services = [
   "General Inquiry",
 ];
 
+/** Shared field styles: avoid transition-all + heavy focus shadow (causes mobile “bounce” / jitter). */
+const fieldClassName =
+  "w-full px-4 py-3 rounded border border-gray-300 bg-white font-[Inter,sans-serif] text-base transition-[border-color,box-shadow] duration-200 ease-out focus:outline-none focus:border-[#1F6F50] focus:ring-2 focus:ring-[#1F6F50]/25 focus:ring-offset-0";
+
 export function ContactSection() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -100,7 +104,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6"
+      className="scroll-mt-20 sm:scroll-mt-24 py-16 sm:py-24 lg:py-32 px-4 sm:px-6 overscroll-y-contain"
       style={{ backgroundColor: "#F4F8F5" }}
     >
       <div className="max-w-3xl mx-auto">
@@ -126,7 +130,10 @@ export function ContactSection() {
             Submit an Inquiry
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+          <form
+            onSubmit={handleSubmit}
+            className="touch-manipulation space-y-5 sm:space-y-6"
+          >
               {error && (
                 <div
                   className="p-4 rounded-lg bg-red-50 border border-red-200 text-red-700"
@@ -154,21 +161,8 @@ export function ContactSection() {
                   required
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded border border-gray-300 transition-all duration-300"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "16px",
-                    boxShadow: "0 0 0 0px rgba(31, 111, 80, 0)",
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.outline = "none";
-                    e.target.style.borderColor = "#1F6F50";
-                    e.target.style.boxShadow = "0 0 0 4px rgba(31, 111, 80, 0.15), 0 0 20px 2px rgba(31, 111, 80, 0.2)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "#D1D5DB";
-                    e.target.style.boxShadow = "0 0 0 0px rgba(31, 111, 80, 0)";
-                  }}
+                  className={fieldClassName}
+                  autoComplete="name"
                 />
               </div>
 
@@ -191,20 +185,8 @@ export function ContactSection() {
                   required
                   value={formData.companyName}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded border border-gray-300 transition-all duration-300"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "16px",
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.outline = "none";
-                    e.target.style.borderColor = "#1F6F50";
-                    e.target.style.boxShadow = "0 0 0 4px rgba(31, 111, 80, 0.15), 0 0 20px 2px rgba(31, 111, 80, 0.2)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "#D1D5DB";
-                    e.target.style.boxShadow = "0 0 0 0px rgba(31, 111, 80, 0)";
-                  }}
+                  className={fieldClassName}
+                  autoComplete="organization"
                 />
               </div>
 
@@ -227,20 +209,9 @@ export function ContactSection() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded border border-gray-300 transition-all duration-300"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "16px",
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.outline = "none";
-                    e.target.style.borderColor = "#1F6F50";
-                    e.target.style.boxShadow = "0 0 0 4px rgba(31, 111, 80, 0.15), 0 0 20px 2px rgba(31, 111, 80, 0.2)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "#D1D5DB";
-                    e.target.style.boxShadow = "0 0 0 0px rgba(31, 111, 80, 0)";
-                  }}
+                  className={fieldClassName}
+                  autoComplete="email"
+                  inputMode="email"
                 />
               </div>
 
@@ -262,20 +233,9 @@ export function ContactSection() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded border border-gray-300 transition-all duration-300"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "16px",
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.outline = "none";
-                    e.target.style.borderColor = "#1F6F50";
-                    e.target.style.boxShadow = "0 0 0 4px rgba(31, 111, 80, 0.15), 0 0 20px 2px rgba(31, 111, 80, 0.2)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "#D1D5DB";
-                    e.target.style.boxShadow = "0 0 0 0px rgba(31, 111, 80, 0)";
-                  }}
+                  className={fieldClassName}
+                  autoComplete="tel"
+                  inputMode="tel"
                 />
               </div>
 
@@ -296,20 +256,7 @@ export function ContactSection() {
                   name="industry"
                   value={formData.industry}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded border border-gray-300 transition-all duration-300"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "16px",
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.outline = "none";
-                    e.target.style.borderColor = "#1F6F50";
-                    e.target.style.boxShadow = "0 0 0 4px rgba(31, 111, 80, 0.15), 0 0 20px 2px rgba(31, 111, 80, 0.2)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "#D1D5DB";
-                    e.target.style.boxShadow = "0 0 0 0px rgba(31, 111, 80, 0)";
-                  }}
+                  className={fieldClassName}
                 >
                   <option value="">Select an industry</option>
                   {industries.map((industry) => (
@@ -337,20 +284,7 @@ export function ContactSection() {
                   name="service"
                   value={formData.service}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded border border-gray-300 transition-all duration-300"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "16px",
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.outline = "none";
-                    e.target.style.borderColor = "#1F6F50";
-                    e.target.style.boxShadow = "0 0 0 4px rgba(31, 111, 80, 0.15), 0 0 20px 2px rgba(31, 111, 80, 0.2)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "#D1D5DB";
-                    e.target.style.boxShadow = "0 0 0 0px rgba(31, 111, 80, 0)";
-                  }}
+                  className={fieldClassName}
                 >
                   <option value="">Select a service</option>
                   {services.map((service) => (
@@ -380,20 +314,7 @@ export function ContactSection() {
                   rows={5}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded border border-gray-300 resize-none transition-all duration-300"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "16px",
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.outline = "none";
-                    e.target.style.borderColor = "#1F6F50";
-                    e.target.style.boxShadow = "0 0 0 4px rgba(31, 111, 80, 0.15), 0 0 20px 2px rgba(31, 111, 80, 0.2)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "#D1D5DB";
-                    e.target.style.boxShadow = "0 0 0 0px rgba(31, 111, 80, 0)";
-                  }}
+                  className={`${fieldClassName} resize-none`}
                 />
               </div>
 
