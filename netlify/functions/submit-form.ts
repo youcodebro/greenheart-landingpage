@@ -51,7 +51,7 @@ function buildConfirmationText(data: FormPayload): string {
 Thank you for your inquiry
 
 Dear ${escapeText(data.fullName)},
-We’ve received your message and a representative will respond within one business day.
+We’ve received your message and a representative will get to you shortly.
 
 Inquiry Details
 Company: ${escapeText(data.companyName)}
@@ -61,11 +61,8 @@ Industry: ${escapeText(data.industry || "—")}
 Your message:
 ${escapeText(data.message)}
 
-Or you can contact us on:
-Georgetown, Guyana
-Washington, DC
-Houston, Texas
-victoria@greenheart.group
+or contact us at:
+info@greenheart.group
 
 Green Heart Environmental & HSE Consultancy · Guyana LTD
 `.trim();
@@ -176,7 +173,7 @@ function buildConfirmationHtml(data: FormPayload): string {
                 Dear ${escapeHtml(data.fullName)},
               </p>
               <p style="margin: 10px 0 0 0; color: #374151; font-size: 15px; line-height: 1.7;">
-                We’ve received your message and a representative will respond within one business day.
+                We’ve received your message and a representative will get to you shortly.
               </p>
             </td>
           </tr>
@@ -222,18 +219,13 @@ function buildConfirmationHtml(data: FormPayload): string {
             <td style="padding: 0 40px 28px 40px;">
               <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px;">
                 <p style="margin: 0 0 10px 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">
-                  Or you can contact us on:
+                  or contact us at:
                 </p>
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
                   <tr>
-                    <td style="padding: 6px 0; color: #374151; font-size: 14px; line-height: 1.6;">
-                      <span style="display: inline-block; width: 22px; color: #1F6F50; vertical-align: middle; line-height: 1;">&#x2316;</span>&nbsp;Georgetown, Guyana, Washington, DC, Houston, Texas
-                    </td>
-                  </tr>
-                  <tr>
                     <td style="padding: 6px 0 0 0; color: #374151; font-size: 14px; line-height: 1.6;">
                       <span style="display: inline-block; width: 22px; color: #1F6F50;">&#x2709;</span>
-                      <a href="mailto:victoria@greenheart.group" style="color: #1F6F50; text-decoration: none; font-weight: 600;">victoria@greenheart.group</a>
+                      <a href="mailto:info@greenheart.group" style="color: #1F6F50; text-decoration: none; font-weight: 600;">info@greenheart.group</a>
                     </td>
                   </tr>
                 </table>
