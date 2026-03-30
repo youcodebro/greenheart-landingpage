@@ -120,7 +120,8 @@ export function Footer() {
             }}
           >
             © {new Date().getFullYear()} Green Heart Environmental & HSE
-            Consultancy. All rights reserved.
+            Consultancy. All rights reserved. &nbsp;•&nbsp; Built by
+            YouCodeBro LLC
           </p>
           <div className="mt-4 flex justify-center">
             <img
