@@ -122,6 +122,16 @@ export function Footer() {
             © {new Date().getFullYear()} Green Heart Environmental & HSE
             Consultancy. All rights reserved.
           </p>
+          <div className="mt-4 flex justify-center">
+            <img
+              src="/media/ycb-logo.png"
+              alt="YCB"
+              className="h-8 w-auto object-contain opacity-90"
+              width={110}
+              height={32}
+              decoding="async"
+            />
+          </div>
         </div>
       </div>
     </footer>
