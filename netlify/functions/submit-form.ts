@@ -3,6 +3,7 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.FROM_EMAIL || "Green Heart <onboarding@resend.dev>";
 const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL || "youcodebro@gmail.com";
+const EMAIL_LOGO_URL = process.env.EMAIL_LOGO_URL || "https://greenheart.group/media/greenheart-logo.png";
 
 interface FormPayload {
   fullName: string;
@@ -105,7 +106,7 @@ function buildEmailHtml(data: FormPayload): string {
         <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
           <tr>
             <td style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">🌿 Green Heart</h1>
+              <img src="${EMAIL_LOGO_URL}" alt="Green Heart" width="240" style="display: block; margin: 0 auto; width: 100%; max-width: 240px; height: auto;" />
               <p style="margin: 8px 0 0 0; color: #C8A951; font-size: 14px; font-weight: 500;">Corporate Environmental & HSE Consultancy</p>
               <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
             </td>
@@ -162,7 +163,7 @@ function buildConfirmationHtml(data: FormPayload): string {
           <!-- Header -->
           <tr>
             <td style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">🌿 Green Heart</h1>
+              <img src="${EMAIL_LOGO_URL}" alt="Green Heart" width="240" style="display: block; margin: 0 auto; width: 100%; max-width: 240px; height: auto;" />
               <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
             </td>
           </tr>
