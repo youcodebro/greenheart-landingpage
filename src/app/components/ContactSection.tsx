@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "motion/react";
+import { GREENHEART_LOGO } from "../constants";
 
 const industries = [
   "Oil & Gas",
@@ -118,17 +119,27 @@ export function ContactSection() {
             boxShadow: "0 10px 40px rgba(0,0,0,0.06)",
           }}
         >
-          <h2
-            className="text-[#0B3D2E] mb-6 sm:mb-8 text-center"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(32px, 5vw, 40px)",
-              lineHeight: "1.2",
-              fontWeight: "600",
-            }}
-          >
-            Submit an Inquiry
-          </h2>
+          <div className="flex flex-col items-center mb-5 sm:mb-6">
+            <img
+              src={GREENHEART_LOGO}
+              alt=""
+              className="h-14 sm:h-16 w-auto max-w-[240px] object-contain mb-4"
+              width={240}
+              height={64}
+              decoding="async"
+            />
+            <h2
+              className="text-[#0B3D2E] text-center"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "clamp(32px, 5vw, 40px)",
+                lineHeight: "1.2",
+                fontWeight: "600",
+              }}
+            >
+              Submit an Inquiry
+            </h2>
+          </div>
 
           <form
             onSubmit={handleSubmit}
@@ -361,11 +372,14 @@ export function ContactSection() {
                   </svg>
                 </button>
                 <div className="text-center">
-                  <div
-                    className="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: "#F4F8F5" }}
-                  >
-                    <span className="text-4xl">🌿</span>
+                  <div className="mx-auto mb-6 flex justify-center">
+                    <img
+                      src={GREENHEART_LOGO}
+                      alt=""
+                      className="h-16 w-auto max-w-[180px] object-contain"
+                      width={180}
+                      height={64}
+                    />
                   </div>
                   <h3
                     className="text-[#0B3D2E] mb-2"

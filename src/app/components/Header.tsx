@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { GREENHEART_LOGO } from "../constants";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -27,17 +28,20 @@ export function Header() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-        <div
-          className="text-white cursor-pointer"
+        <button
+          type="button"
           onClick={() => scrollToSection("hero")}
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "20px",
-            fontWeight: "600",
-          }}
+          className="flex items-center cursor-pointer bg-transparent border-0 p-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A951] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md"
+          aria-label="Green Heart — home"
         >
-          🌿 Green Heart
-        </div>
+          <img
+            src={GREENHEART_LOGO}
+            alt=""
+            className="h-14 sm:h-16 md:h-[5rem] w-auto max-w-[min(78vw,320px)] object-contain object-left drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
+            width={320}
+            height={72}
+          />
+        </button>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">

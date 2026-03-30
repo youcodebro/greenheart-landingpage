@@ -1,4 +1,5 @@
-import { MapPin, Mail, Phone } from "lucide-react";
+import { MapPin, Mail } from "lucide-react";
+import { GREENHEART_LOGO } from "../constants";
 
 export function Footer() {
   return (
@@ -6,16 +7,16 @@ export function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 mb-8 sm:mb-12">
           <div>
-            <h3
-              className="text-white mb-4"
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "clamp(20px, 3vw, 24px)",
-                fontWeight: "600",
-              }}
-            >
-              🌿 Green Heart
-            </h3>
+            <div className="mb-5 flex justify-center">
+              <img
+                src={GREENHEART_LOGO}
+                alt="Green Heart"
+                className="h-16 sm:h-20 md:h-24 w-auto max-w-[min(92vw,360px)] object-contain drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
+                width={360}
+                height={104}
+                decoding="async"
+              />
+            </div>
             <p
               className="text-white/80 mb-4"
               style={{
