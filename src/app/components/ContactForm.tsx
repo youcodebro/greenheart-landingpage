@@ -100,7 +100,7 @@ export function ContactForm() {
                   color: '#0B3D2E'
                 }}
               >
-                Thank you for contacting Green Heart. A representative will respond within one business day.
+                Thank you for contacting Green Heart. A representative will get back to you shortly.
               </p>
             </div>
           ) : (

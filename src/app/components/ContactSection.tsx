@@ -409,7 +409,7 @@ export function ContactSection() {
                       lineHeight: "1.6",
                     }}
                   >
-                    A representative will respond within one business day.
+                    A representative will get back to you shortly.
                   </p>
                   <div className="mt-6 w-12 h-0.5 mx-auto" style={{ backgroundColor: "#C8A951" }} />
                 </div>

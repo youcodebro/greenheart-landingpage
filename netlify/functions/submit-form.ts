@@ -5,6 +5,31 @@ const FROM_EMAIL = process.env.FROM_EMAIL || "Green Heart <onboarding@resend.dev
 const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL || "youcodebro@gmail.com";
 const EMAIL_LOGO_URL = process.env.EMAIL_LOGO_URL || "https://greenheart.group/media/greenheart-logo.png";
 
+/** Shared mobile styles: larger type + more horizontal space for the card on phones */
+const EMAIL_MOBILE_CSS = `
+  @media only screen and (max-width: 640px) {
+    .wrapper { padding: 12px 6px !important; }
+    .card { max-width: 100% !important; }
+    .pad { padding-left: 14px !important; padding-right: 14px !important; }
+    .pad-top { padding-top: 20px !important; }
+    .pad-bottom { padding-bottom: 20px !important; }
+    .email-h2 { font-size: 22px !important; }
+    .email-p { font-size: 17px !important; line-height: 1.65 !important; }
+    .email-small { font-size: 15px !important; line-height: 1.55 !important; }
+    .email-caption { font-size: 13px !important; line-height: 1.5 !important; }
+    .email-header-tagline { font-size: 15px !important; }
+    .email-logo { max-width: 280px !important; width: 92% !important; }
+    .email-table td { font-size: 16px !important; line-height: 1.5 !important; }
+    .email-summary-table p { font-size: 16px !important; line-height: 1.55 !important; }
+    .email-message-box { padding: 22px 18px !important; }
+    .email-message-box .msg-body { font-size: 17px !important; line-height: 1.65 !important; }
+    .email-contact-box { padding: 18px 16px !important; }
+    .email-contact-box p,
+    .email-contact-box td,
+    .email-contact-box a { font-size: 16px !important; }
+  }
+`;
+
 interface FormPayload {
   fullName: string;
   companyName: string;
@@ -95,42 +120,43 @@ function buildEmailHtml(data: FormPayload): string {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Inquiry — Green Heart</title>
+  <style>${EMAIL_MOBILE_CSS}</style>
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #e8f0ec;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #e8f0ec; padding: 40px 20px;">
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #e8f0ec; -webkit-text-size-adjust: 100%;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="wrapper" style="background-color: #e8f0ec; padding: 40px 20px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="card" style="max-width: 600px; width: 100%; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
           <tr>
-            <td style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
-              <img src="${EMAIL_LOGO_URL}" alt="Green Heart" width="240" style="display: block; margin: 0 auto; width: 100%; max-width: 240px; height: auto;" />
-              <p style="margin: 8px 0 0 0; color: #C8A951; font-size: 14px; font-weight: 500;">Corporate Environmental & HSE Consultancy</p>
+            <td class="pad pad-top" style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
+              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="240" style="display: block; margin: 0 auto; width: 100%; max-width: 240px; height: auto;" />
+              <p class="email-header-tagline" style="margin: 8px 0 0 0; color: #C8A951; font-size: 14px; font-weight: 500;">Corporate Environmental & HSE Consultancy</p>
               <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
             </td>
           </tr>
           <tr>
-            <td style="padding: 28px 40px 16px 40px;">
-              <h2 style="margin: 0; color: #0B3D2E; font-size: 20px; font-weight: 600;">New Inquiry</h2>
+            <td class="pad pad-top" style="padding: 28px 40px 16px 40px;">
+              <h2 class="email-h2" style="margin: 0; color: #0B3D2E; font-size: 20px; font-weight: 600;">New Inquiry</h2>
             </td>
           </tr>
           <tr>
-            <td style="padding: 0 40px 24px 40px;">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+            <td class="pad pad-bottom" style="padding: 0 40px 24px 40px;">
+              <table role="presentation" class="email-table" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
                 ${rows}
               </table>
             </td>
           </tr>
           <tr>
-            <td style="padding: 0 40px 32px 40px;">
-              <div style="background: #F4F8F5; border-radius: 8px; padding: 20px 24px; border-left: 4px solid #1F6F50;">
-                <p style="margin: 0 0 8px 0; color: #0B3D2E; font-size: 14px; font-weight: 600;"><strong>Message</strong></p>
-                <p style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(data.message)}</p>
+            <td class="pad pad-bottom" style="padding: 0 40px 32px 40px;">
+              <div class="email-message-box" style="background: #F4F8F5; border-radius: 8px; padding: 20px 24px; border-left: 4px solid #1F6F50;">
+                <p class="email-small" style="margin: 0 0 8px 0; color: #0B3D2E; font-size: 14px; font-weight: 600;"><strong>Message</strong></p>
+                <p class="email-p msg-body" style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(data.message)}</p>
               </div>
             </td>
           </tr>
           <tr>
-            <td style="padding: 20px 40px; background: #f9fafb; border-top: 1px solid #e5e7eb;">
-              <p style="margin: 0; color: #6b7280; font-size: 12px;">Green Heart Environmental & HSE Consultancy · Guyana LTD</p>
+            <td class="pad" style="padding: 20px 40px; background: #f9fafb; border-top: 1px solid #e5e7eb;">
+              <p class="email-caption" style="margin: 0; color: #6b7280; font-size: 12px;">Green Heart Environmental & HSE Consultancy · Guyana LTD</p>
             </td>
           </tr>
         </table>
@@ -151,28 +177,29 @@ function buildConfirmationHtml(data: FormPayload): string {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thanks — Green Heart</title>
+  <style>${EMAIL_MOBILE_CSS}</style>
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #e8f0ec;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #e8f0ec; padding: 40px 20px;">
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #e8f0ec; -webkit-text-size-adjust: 100%;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="wrapper" style="background-color: #e8f0ec; padding: 40px 20px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="card" style="max-width: 600px; width: 100%; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
           <!-- Header -->
           <tr>
-            <td style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
-              <img src="${EMAIL_LOGO_URL}" alt="Green Heart" width="240" style="display: block; margin: 0 auto; width: 100%; max-width: 240px; height: auto;" />
+            <td class="pad pad-top" style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
+              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="240" style="display: block; margin: 0 auto; width: 100%; max-width: 240px; height: auto;" />
               <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
             </td>
           </tr>
 
           <!-- Body -->
           <tr>
-            <td style="padding: 28px 40px 8px 40px;">
-              <h2 style="margin: 0 0 12px 0; color: #0B3D2E; font-size: 20px; font-weight: 700;">Thank you for your inquiry</h2>
-              <p style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7;">
+            <td class="pad pad-top" style="padding: 28px 40px 8px 40px;">
+              <h2 class="email-h2" style="margin: 0 0 12px 0; color: #0B3D2E; font-size: 20px; font-weight: 700;">Thank you for your inquiry</h2>
+              <p class="email-p" style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7;">
                 Dear ${escapeHtml(data.fullName)},
               </p>
-              <p style="margin: 10px 0 0 0; color: #374151; font-size: 15px; line-height: 1.7;">
+              <p class="email-p" style="margin: 10px 0 0 0; color: #374151; font-size: 15px; line-height: 1.7;">
                 We’ve received your message and a representative will get to you shortly.
               </p>
             </td>
@@ -180,22 +207,22 @@ function buildConfirmationHtml(data: FormPayload): string {
 
           <!-- Summary -->
           <tr>
-            <td style="padding: 12px 40px 24px 40px;">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+            <td class="pad pad-bottom" style="padding: 12px 40px 24px 40px;">
+              <table role="presentation" class="email-summary-table" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
                 <tr>
                   <td style="padding: 14px 16px; background: #F4F8F5; border-bottom: 1px solid #e5e7eb;">
-                    <p style="margin: 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">Inquiry Details</p>
+                    <p class="email-small" style="margin: 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">Inquiry Details</p>
                   </td>
                 </tr>
                 <tr>
                   <td style="padding: 12px 16px;">
-                    <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px;">
+                    <p class="email-p" style="margin: 0 0 8px 0; color: #374151; font-size: 14px;">
                       <strong style="color: #0B3D2E;">Company:</strong> ${escapeHtml(data.companyName)}
                     </p>
-                    <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px;">
+                    <p class="email-p" style="margin: 0 0 8px 0; color: #374151; font-size: 14px;">
                       <strong style="color: #0B3D2E;">Service:</strong> ${escapeHtml(data.service || "—")}
                     </p>
-                    <p style="margin: 0; color: #374151; font-size: 14px;">
+                    <p class="email-p" style="margin: 0; color: #374151; font-size: 14px;">
                       <strong style="color: #0B3D2E;">Industry:</strong> ${escapeHtml(data.industry || "—")}
                     </p>
                   </td>
@@ -206,19 +233,19 @@ function buildConfirmationHtml(data: FormPayload): string {
 
           <!-- Message -->
           <tr>
-            <td style="padding: 0 40px 32px 40px;">
-              <div style="background: #F4F8F5; border-radius: 8px; padding: 18px 20px; border-left: 4px solid #1F6F50;">
-                <p style="margin: 0 0 8px 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">Your message</p>
-                <p style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(data.message)}</p>
+            <td class="pad pad-bottom" style="padding: 0 40px 32px 40px;">
+              <div class="email-message-box" style="background: #F4F8F5; border-radius: 8px; padding: 18px 20px; border-left: 4px solid #1F6F50;">
+                <p class="email-small" style="margin: 0 0 8px 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">Your message</p>
+                <p class="email-p msg-body" style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(data.message)}</p>
               </div>
             </td>
           </tr>
 
           <!-- Contact -->
           <tr>
-            <td style="padding: 0 40px 28px 40px;">
-              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px;">
-                <p style="margin: 0 0 10px 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">
+            <td class="pad pad-bottom" style="padding: 0 40px 28px 40px;">
+              <div class="email-contact-box" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px;">
+                <p class="email-small" style="margin: 0 0 10px 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">
                   or contact us at:
                 </p>
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
@@ -235,8 +262,8 @@ function buildConfirmationHtml(data: FormPayload): string {
 
           <!-- Footer -->
           <tr>
-            <td style="padding: 20px 40px; background: #f9fafb; border-top: 1px solid #e5e7eb;">
-              <p style="margin: 0; color: #6b7280; font-size: 12px;">
+            <td class="pad" style="padding: 20px 40px; background: #f9fafb; border-top: 1px solid #e5e7eb;">
+              <p class="email-caption" style="margin: 0; color: #6b7280; font-size: 12px;">
                 Green Heart Environmental & HSE Consultancy · Guyana LTD
               </p>
             </td>
