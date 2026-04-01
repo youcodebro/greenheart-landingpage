@@ -1,5 +1,5 @@
 import { MapPin, Mail } from "lucide-react";
-import { GREENHEART_LOGO } from "../constants";
+import { GREENHEART_LOGO,GREENHEART_LOGOWhite,GREENHEART_LOGOWhite2 } from "../constants";
 
 export function Footer() {
   return (
@@ -9,9 +9,9 @@ export function Footer() {
           <div>
             <div className="mb-5 flex justify-center">
               <img
-                src={GREENHEART_LOGO}
+                src={GREENHEART_LOGOWhite2}
                 alt="Green Heart"
-                className="h-16 sm:h-20 md:h-24 w-auto max-w-[min(92vw,360px)] object-contain drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
+                className="h-24 sm:h-28 md:h-34 w-auto max-w-[min(92vw,360px)] object-contain drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
                 width={360}
                 height={104}
                 decoding="async"

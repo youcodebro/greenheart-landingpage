@@ -123,9 +123,9 @@ export function ContactSection() {
             <img
               src={GREENHEART_LOGO}
               alt=""
-              className="h-14 sm:h-16 w-auto max-w-[240px] object-contain mb-4"
-              width={240}
-              height={64}
+              className="h-24 sm:h-28 w-auto max-w-[320px] object-contain mb-4"
+              width={320}
+              height={72}
               decoding="async"
             />
             <h2
@@ -376,7 +376,7 @@ export function ContactSection() {
                     <img
                       src={GREENHEART_LOGO}
                       alt=""
-                      className="h-16 w-auto max-w-[180px] object-contain"
+                      className="h-24 w-auto max-w-[180px] object-contain"
                       width={180}
                       height={64}
                     />
