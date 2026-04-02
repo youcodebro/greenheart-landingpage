@@ -18,7 +18,7 @@ const EMAIL_MOBILE_CSS = `
     .email-small { font-size: 15px !important; line-height: 1.55 !important; }
     .email-caption { font-size: 13px !important; line-height: 1.5 !important; }
     .email-header-tagline { font-size: 15px !important; }
-    .email-logo { max-width: 150px !important; width: 64% !important; }
+    .email-logo { max-width: 120px !important; width: 56% !important; }
     .email-table td { font-size: 16px !important; line-height: 1.5 !important; }
     .email-summary-table p { font-size: 16px !important; line-height: 1.55 !important; }
     .email-message-box { padding: 22px 18px !important; }
