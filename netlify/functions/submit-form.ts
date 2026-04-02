@@ -3,7 +3,7 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.FROM_EMAIL || "Green Heart <onboarding@resend.dev>";
 const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL || "youcodebro@gmail.com";
-const EMAIL_LOGO_URL = process.env.EMAIL_LOGO_URL || "https://greenheart.group/media/greenheart-logo-optimized.webp";
+const EMAIL_LOGO_URL = process.env.EMAIL_LOGO_URL || "https://greenheart.group/media/greenheart-white-email.png";
 
 /** Shared mobile styles: larger type + more horizontal space for the card on phones */
 const EMAIL_MOBILE_CSS = `
@@ -18,7 +18,7 @@ const EMAIL_MOBILE_CSS = `
     .email-small { font-size: 15px !important; line-height: 1.55 !important; }
     .email-caption { font-size: 13px !important; line-height: 1.5 !important; }
     .email-header-tagline { font-size: 15px !important; }
-    .email-logo { max-width: 220px !important; width: 78% !important; }
+    .email-logo { max-width: 150px !important; width: 64% !important; }
     .email-table td { font-size: 16px !important; line-height: 1.5 !important; }
     .email-summary-table p { font-size: 16px !important; line-height: 1.55 !important; }
     .email-message-box { padding: 22px 18px !important; }
@@ -129,7 +129,7 @@ function buildEmailHtml(data: FormPayload): string {
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="card" style="max-width: 600px; width: 100%; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
           <tr>
             <td class="pad pad-top" style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
-              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="180" style="display: block; margin: 0 auto; width: 100%; max-width: 180px; height: auto;" />
+              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="130" style="display: block; margin: 0 auto; width: 100%; max-width: 130px; height: auto;" />
               <p class="email-header-tagline" style="margin: 8px 0 0 0; color: #C8A951; font-size: 14px; font-weight: 500;">Corporate Environmental & HSE Consultancy</p>
               <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
             </td>
@@ -190,7 +190,7 @@ function buildConfirmationHtml(data: FormPayload): string {
           <!-- Header -->
           <tr>
             <td class="pad pad-top" style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
-              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="180" style="display: block; margin: 0 auto; width: 100%; max-width: 180px; height: auto;" />
+              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="130" style="display: block; margin: 0 auto; width: 100%; max-width: 130px; height: auto;" />
               <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
             </td>
           </tr>
