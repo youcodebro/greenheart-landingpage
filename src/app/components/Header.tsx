@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { GREENHEART_LOGO } from "../constants";
+import { GREENHEART_LOGO, GREENHEART_LOGOWhite, GREENHEART_LOGOWhite2 } from "../constants";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -35,9 +35,9 @@ export function Header() {
           aria-label="Green Heart — home"
         >
           <img
-            src={GREENHEART_LOGO}
+            src={GREENHEART_LOGOWhite2}
             alt=""
-            className="h-14 sm:h-16 md:h-[5rem] w-auto max-w-[min(78vw,320px)] object-contain object-left drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
+            className="h-20 sm:h-24 md:h-[5rem] w-auto max-w-[min(78vw,320px)] object-contain object-left drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
             width={320}
             height={72}
           />
