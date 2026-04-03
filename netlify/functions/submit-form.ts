@@ -3,7 +3,7 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.FROM_EMAIL || "Green Heart <onboarding@resend.dev>";
 const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL || "youcodebro@gmail.com";
-const EMAIL_LOGO_URL = process.env.EMAIL_LOGO_URL || "https://greenheart.group/media/greenheart-logo.png";
+const EMAIL_LOGO_URL = process.env.EMAIL_LOGO_URL || "https://greenheart.group/media/greenheart-white-email.png";
 
 /** Shared mobile styles: larger type + more horizontal space for the card on phones */
 const EMAIL_MOBILE_CSS = `
@@ -18,7 +18,7 @@ const EMAIL_MOBILE_CSS = `
     .email-small { font-size: 15px !important; line-height: 1.55 !important; }
     .email-caption { font-size: 13px !important; line-height: 1.5 !important; }
     .email-header-tagline { font-size: 15px !important; }
-    .email-logo { max-width: 280px !important; width: 92% !important; }
+    .email-logo { max-width: 120px !important; width: 56% !important; }
     .email-table td { font-size: 16px !important; line-height: 1.5 !important; }
     .email-summary-table p { font-size: 16px !important; line-height: 1.55 !important; }
     .email-message-box { padding: 22px 18px !important; }
@@ -126,10 +126,10 @@ function buildEmailHtml(data: FormPayload): string {
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="wrapper" style="background-color: #e8f0ec; padding: 40px 20px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="card" style="max-width: 600px; width: 100%; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="card" style="max-width: 600px; width: 100%; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
           <tr>
             <td class="pad pad-top" style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
-              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="240" style="display: block; margin: 0 auto; width: 100%; max-width: 240px; height: auto;" />
+              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="130" style="display: block; margin: 0 auto; width: 100%; max-width: 130px; height: auto;" />
               <p class="email-header-tagline" style="margin: 8px 0 0 0; color: #C8A951; font-size: 14px; font-weight: 500;">Corporate Environmental & HSE Consultancy</p>
               <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
             </td>
@@ -141,7 +141,7 @@ function buildEmailHtml(data: FormPayload): string {
           </tr>
           <tr>
             <td class="pad pad-bottom" style="padding: 0 40px 24px 40px;">
-              <table role="presentation" class="email-table" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+              <table role="presentation" class="email-table" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px;">
                 ${rows}
               </table>
             </td>
@@ -158,6 +158,9 @@ function buildEmailHtml(data: FormPayload): string {
             <td class="pad" style="padding: 20px 40px; background: #f9fafb; border-top: 1px solid #e5e7eb;">
               <p class="email-caption" style="margin: 0; color: #6b7280; font-size: 12px;">Green Heart Environmental & HSE Consultancy · Guyana LTD</p>
             </td>
+          </tr>
+          <tr>
+            <td style="height: 10px; line-height: 10px; font-size: 10px;">&nbsp;</td>
           </tr>
         </table>
       </td>
@@ -183,11 +186,11 @@ function buildConfirmationHtml(data: FormPayload): string {
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="wrapper" style="background-color: #e8f0ec; padding: 40px 20px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="card" style="max-width: 600px; width: 100%; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="card" style="max-width: 600px; width: 100%; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 24px rgba(11, 61, 46, 0.08);">
           <!-- Header -->
           <tr>
             <td class="pad pad-top" style="background: linear-gradient(135deg, #0B3D2E 0%, #134E3A 100%); padding: 32px 40px; text-align: center;">
-              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="240" style="display: block; margin: 0 auto; width: 100%; max-width: 240px; height: auto;" />
+              <img class="email-logo" src="${EMAIL_LOGO_URL}" alt="Green Heart" width="130" style="display: block; margin: 0 auto; width: 100%; max-width: 130px; height: auto;" />
               <div style="margin-top: 16px; width: 48px; height: 3px; background: #C8A951; margin-left: auto; margin-right: auto;"></div>
             </td>
           </tr>
@@ -208,7 +211,7 @@ function buildConfirmationHtml(data: FormPayload): string {
           <!-- Summary -->
           <tr>
             <td class="pad pad-bottom" style="padding: 12px 40px 24px 40px;">
-              <table role="presentation" class="email-summary-table" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+              <table role="presentation" class="email-summary-table" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e5e7eb; border-radius: 8px;">
                 <tr>
                   <td style="padding: 14px 16px; background: #F4F8F5; border-bottom: 1px solid #e5e7eb;">
                     <p class="email-small" style="margin: 0; color: #0B3D2E; font-size: 14px; font-weight: 700;">Inquiry Details</p>
@@ -267,6 +270,9 @@ function buildConfirmationHtml(data: FormPayload): string {
                 Green Heart Environmental & HSE Consultancy · Guyana LTD
               </p>
             </td>
+          </tr>
+          <tr>
+            <td style="height: 10px; line-height: 10px; font-size: 10px;">&nbsp;</td>
           </tr>
         </table>
       </td>
