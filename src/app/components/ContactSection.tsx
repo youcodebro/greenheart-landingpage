@@ -105,15 +105,15 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="scroll-mt-20 sm:scroll-mt-24 py-16 sm:py-24 lg:py-32 px-4 sm:px-6 overscroll-y-contain"
+      className="scroll-mt-20 sm:scroll-mt-24 py-16 sm:py-24 lg:py-32 px-4 sm:px-6"
       style={{ backgroundColor: "#F4F8F5" }}
     >
       <div className="max-w-3xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          // initial={{ opacity: 0, y: 20 }}
+          // whileInView={{ opacity: 1, y: 0 }}
+          // viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="bg-white rounded-lg p-6 sm:p-8 lg:p-10"
           style={{
             boxShadow: "0 10px 40px rgba(0,0,0,0.06)",
