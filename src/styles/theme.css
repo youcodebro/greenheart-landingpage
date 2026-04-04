@@ -198,7 +198,7 @@
 /* Responsive CSS */
 @media screen and (max-width: 1024px) {
   section#hero {
-      padding-top: 120px;
+      padding-top: 100px;
       height: 95svh !important;
   }
   .banner-heading{
@@ -225,6 +225,12 @@
 }
 
 @media screen and (max-width: 768px) {
+  #hero .banner-heading{
+    margin-bottom: 10px;
+  }
+  #hero p{
+    margin-bottom: 10px;
+  }
   .navigation{
     padding-top: 10px;
     padding-bottom: 10px;

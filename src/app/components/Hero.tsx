@@ -32,10 +32,10 @@ export function Hero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center banner-content">
         <div className="mb-6">
           <h1 
-            className="text-white mb-2"
+            className="text-white mb-2 banner-title"
             style={{
               fontFamily: "'DM Serif Display', serif",
               fontSize: '56px',
@@ -57,7 +57,7 @@ export function Hero() {
         <div className="w-24 h-1 bg-[#C8A951] mx-auto mb-8"></div>
 
         <h2 
-          className="text-white mb-6 max-w-4xl mx-auto"
+          className="text-white mb-6 max-w-4xl mx-auto banner-heading"
           style={{
             fontFamily: "'DM Serif Display', serif",
             fontSize: '48px',
