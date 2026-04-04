@@ -233,7 +233,7 @@
     max-width: 70px;
   }
   section#hero{
-    height: 95svh !important;
+    height: 100svh !important;
   }
   section.parallax-section{
     height: 60svh !important;
@@ -252,7 +252,7 @@
 
 @media screen and (max-width: 640px) {
   section#hero{
-    height: 80svh !important;
+    height: 95svh !important;
   }
   .main-heading{
     font-size: 28px !important;
