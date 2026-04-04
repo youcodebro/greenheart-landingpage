@@ -36,7 +36,7 @@ export function ParallaxImageSection({
   return (
     <section
       ref={ref}
-      className="relative h-[80vh] overflow-hidden"
+      className="parallax-section relative h-[80vh] overflow-hidden"
     >
       {/* Parallax Background */}
       <motion.div
@@ -67,7 +67,7 @@ export function ParallaxImageSection({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-white mb-4"
+            className="text-white mb-4 sub-heading"
             style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(32px, 5vw, 48px)",

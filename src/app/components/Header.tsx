@@ -23,11 +23,11 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`header fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-[#0B3D2E] shadow-lg" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div className="navigation max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         <button
           type="button"
           onClick={() => scrollToSection("hero")}
@@ -37,7 +37,7 @@ export function Header() {
           <img
             src={GREENHEART_LOGOWhite2}
             alt=""
-            className="h-20 sm:h-24 md:h-[5rem] w-auto max-w-[min(78vw,320px)] object-contain object-left drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
+            className="logo h-20 sm:h-24 md:h-[5rem] w-auto max-w-[min(78vw,320px)] object-contain object-left drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
             width={320}
             height={72}
           />

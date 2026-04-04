@@ -3,7 +3,7 @@ import brightRiver from "@/assets/images/bright-river.webp";
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 bg-white">
+    <section id="about" className="py-14 sm:py-20 lg:py-24 px-4 sm:px-6 bg-white">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left - Image */}
@@ -28,7 +28,7 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-[#0B3D2E] mb-4 sm:mb-6"
+              className="text-[#0B3D2E] mb-4 sm:mb-6 sub-heading"
               style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(32px, 5vw, 42px)",

@@ -3,15 +3,15 @@ import { GREENHEART_LOGO,GREENHEART_LOGOWhite,GREENHEART_LOGOWhite2 } from "../c
 
 export function Footer() {
   return (
-    <footer className="py-12 sm:py-16 px-4 sm:px-6 bg-[#0B3D2E]">
+    <footer className="footer py-10 sm:py-14 px-4 sm:px-4 bg-[#0B3D2E]">
       <div className="max-w-7xl mx-auto">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 mb-8 sm:mb-12">
+        <div className="footer-content grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 mb-8 sm:mb-12">
           <div>
-            <div className="mb-5 flex justify-center">
+            <div className="mb-5 flex justify-cente logo-center">
               <img
                 src={GREENHEART_LOGOWhite2}
                 alt="Green Heart"
-                className="h-24 sm:h-28 md:h-34 w-auto max-w-[min(92vw,360px)] object-contain drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
+                className="footer-logo h-24 sm:h-28 md:h-34 w-auto max-w-[min(92vw,360px)] object-contain drop-shadow-[0_3px_14px_rgba(0,0,0,0.6)]"
                 width={360}
                 height={104}
                 decoding="async"
@@ -132,7 +132,7 @@ export function Footer() {
             <img
               src="/media/ycb-logo.png"
               alt="YouCodeBro logo"
-              className="h-7 w-auto object-contain"
+              className="h-7 w-auto object-contain sm-logo"
               width={120}
               height={36}
               decoding="async"

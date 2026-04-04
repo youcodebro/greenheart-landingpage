@@ -129,7 +129,7 @@ export function ContactSection() {
               decoding="async"
             />
             <h2
-              className="text-[#0B3D2E] text-center"
+              className="text-[#0B3D2E] text-center sub-heading"
               style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(32px, 5vw, 40px)",

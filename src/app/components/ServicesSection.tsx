@@ -51,7 +51,7 @@ export function ServicesSection() {
   return (
     <section
       id="services"
-      className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6"
+      className="py-14 sm:py-20 lg:py-24 px-4 sm:px-6"
       style={{ backgroundColor: "#F4F8F5" }}
     >
       <div className="max-w-7xl mx-auto">
@@ -103,7 +103,7 @@ export function ServicesSection() {
                 </div>
 
                 <h3
-                  className="text-[#0B3D2E] mb-3"
+                  className="text-[#0B3D2E] mb-3 service-title"
                   style={{
                     fontFamily: "'Playfair Display', serif",
                     fontSize: "clamp(20px, 3vw, 22px)",
