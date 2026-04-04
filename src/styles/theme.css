@@ -197,6 +197,9 @@
 
 /* Responsive CSS */
 @media screen and (max-width: 1024px) {
+  section#hero {
+      padding-top: 120px;
+  }
   .banner-heading{
     font-size: 32px !important;
   }
@@ -229,7 +232,7 @@
     max-width: 70px;
   }
   section#hero{
-    height: 80svh !important;
+    height: 85svh !important;
   }
   section.parallax-section{
     height: 60svh !important;
@@ -272,4 +275,9 @@
     flex-direction: column;
     align-items: center;
   }
+  
+  section.parallax-section{
+    height: 45svh !important;
+  }
 }
+
