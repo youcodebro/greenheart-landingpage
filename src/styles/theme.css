@@ -199,6 +199,7 @@
 @media screen and (max-width: 1024px) {
   section#hero {
       padding-top: 120px;
+      height: 95svh !important;
   }
   .banner-heading{
     font-size: 32px !important;
@@ -232,7 +233,7 @@
     max-width: 70px;
   }
   section#hero{
-    height: 85svh !important;
+    height: 95svh !important;
   }
   section.parallax-section{
     height: 60svh !important;
@@ -250,7 +251,9 @@
 }
 
 @media screen and (max-width: 640px) {
-
+  section#hero{
+    height: 80svh !important;
+  }
   .main-heading{
     font-size: 28px !important;
   }
